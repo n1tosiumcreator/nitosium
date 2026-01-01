@@ -1,5 +1,17 @@
--- NITOSIUM LOADER v1.0
+-- NITOSIUM LOADER v1.1 - FIXED DUPLICATE GUI
 print("🔐 NITOSIUM LOADER INITIALIZING...")
+
+-- CLEAN UP ANY EXISTING GUI FIRST
+local CoreGui = game:GetService("CoreGui")
+
+-- Remove old loader if exists
+if CoreGui:FindFirstChild("NitosiumLoader") then
+    CoreGui.NitosiumLoader:Destroy()
+end
+
+if CoreGui:FindFirstChild("NitosiumCore") then
+    CoreGui.NitosiumCore:Destroy()
+end
 
 -- ENCRYPTED KEYS (10 keys)
 local validKeys = {
@@ -15,10 +27,10 @@ local validKeys = {
     ["CH33T3R"] = true
 }
 
--- Create GUI
+-- Create NEW GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "NitosiumLoader"
-ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.Parent = CoreGui
 ScreenGui.ResetOnSpawn = false
 
 local MainFrame = Instance.new("Frame")
