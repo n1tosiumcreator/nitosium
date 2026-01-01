@@ -1,14 +1,12 @@
--- NITOSIUM LOADER v1.3
--- GitHub: https://github.com/yourusername/nitosium
--- Paste this into your executor to load from GitHub
+NITOSIUM LOADER v1.3
 
 local function LoadNitosium()
     print("Loading Nitosium v1.3 from GitHub...")
     
-    -- GitHub raw URL
-    local githubURL = "https://raw.githubusercontent.com/yourusername/nitosium/main/nitosium.lua"
+ 
+    local githubURL = "https://raw.githubusercontent.com/n1tosiumcreator/nitosium/main/nitosium.lua"
     
-    -- Try to load from GitHub
+
     local success, err = pcall(function()
         local scriptContent = game:HttpGet(githubURL)
         
@@ -16,7 +14,7 @@ local function LoadNitosium()
             print("Successfully downloaded Nitosium v1.3")
             print("Script size: " .. #scriptContent .. " bytes")
             
-            -- Execute the downloaded script
+       
             loadstring(scriptContent)()
             
             print("Nitosium v1.3 loaded successfully!")
@@ -29,15 +27,14 @@ local function LoadNitosium()
         print("GitHub load failed: " .. err)
         print("Trying alternative method...")
         
-        -- Alternative load method (for executors that block HttpGet)
-        LoadAlternative()
+   
     end
 end
 
 local function LoadAlternative()
     print("Loading via alternative method...")
     
-    -- Pastebin alternative (if GitHub is blocked)
+ 
     local pastebinURL = "https://pastebin.com/raw/XXXXXX" -- Replace with your Pastebin code
     
     local success, err = pcall(function()
@@ -61,16 +58,14 @@ end
 local function LoadDirect()
     print("Loading Nitosium directly...")
     
-    -- The full Nitosium script would be here
-    -- This is just a minimal version for testing
+ 
     print("NITOSIUM DIRECT LOADER")
     print("For full version, use GitHub or Pastebin method")
     
-    -- You can paste the full script here as fallback
-    -- [PASTE THE ENTIRE NITOSIUM SCRIPT HERE]
+
 end
 
--- Main menu for the loader
+
 local LoaderGui = Instance.new("ScreenGui")
 LoaderGui.Name = "NitosiumLoader"
 LoaderGui.Parent = game:GetService("CoreGui")
@@ -121,7 +116,7 @@ InfoLabel.TextColor3 = Color3.fromRGB(255, 200, 200)
 InfoLabel.TextSize = 16
 InfoLabel.TextWrapped = true
 
--- GitHub Button
+
 local GitHubBtn = Instance.new("TextButton")
 GitHubBtn.Name = "GitHubBtn"
 GitHubBtn.Parent = LoaderFrame
@@ -135,7 +130,6 @@ GitHubBtn.Text = "GitHub"
 GitHubBtn.TextColor3 = Color3.new(1, 1, 1)
 GitHubBtn.TextSize = 18
 
--- Alternative Button
 local AltBtn = Instance.new("TextButton")
 AltBtn.Name = "AltBtn"
 AltBtn.Parent = LoaderFrame
@@ -149,7 +143,7 @@ AltBtn.Text = "Alternative"
 AltBtn.TextColor3 = Color3.new(1, 1, 1)
 AltBtn.TextSize = 18
 
--- Status Label
+
 local StatusLabel = Instance.new("TextLabel")
 StatusLabel.Name = "StatusLabel"
 StatusLabel.Parent = LoaderFrame
@@ -161,7 +155,7 @@ StatusLabel.Text = "Ready to load..."
 StatusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
 StatusLabel.TextSize = 14
 
--- Rainbow effect for title
+
 spawn(function()
     while LoaderGui.Parent do
         for hue = 0, 1, 0.01 do
@@ -172,7 +166,7 @@ spawn(function()
     end
 end)
 
--- Button functions
+
 GitHubBtn.MouseButton1Click:Connect(function()
     StatusLabel.Text = "Loading from GitHub..."
     StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
@@ -186,7 +180,7 @@ GitHubBtn.MouseButton1Click:Connect(function()
     StatusLabel.Text = "GitHub load attempted!"
     StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
     
-    -- Auto-close after 2 seconds
+
     wait(2)
     LoaderGui:Destroy()
 end)
@@ -204,12 +198,12 @@ AltBtn.MouseButton1Click:Connect(function()
     StatusLabel.Text = "Alternative load attempted!"
     StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
     
-    -- Auto-close after 2 seconds
+
     wait(2)
     LoaderGui:Destroy()
 end)
 
--- Auto-load after 10 seconds
+
 spawn(function()
     wait(10)
     if LoaderGui.Parent then
@@ -226,5 +220,5 @@ spawn(function()
 end)
 
 print("NITOSIUM LOADER v1.3 INITIALIZED")
-print("GitHub: https://github.com/yourusername/nitosium")
+print("GitHub: https:/n1tosiumcreator/github.com//nitosium")
 print("Script will auto-load in 10 seconds...")
