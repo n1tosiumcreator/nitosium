@@ -1,10 +1,10 @@
 -- NITOSIUM LOADER v1.1 - FIXED DUPLICATE GUI
 print("🔐 NITOSIUM LOADER INITIALIZING...")
 
--- CLEAN UP ANY EXISTING GUI FIRST
+
 local CoreGui = game:GetService("CoreGui")
 
--- Remove old loader if exists
+
 if CoreGui:FindFirstChild("NitosiumLoader") then
     CoreGui.NitosiumLoader:Destroy()
 end
@@ -13,7 +13,7 @@ if CoreGui:FindFirstChild("NitosiumCore") then
     CoreGui.NitosiumCore:Destroy()
 end
 
--- ENCRYPTED KEYS (10 keys)
+
 local validKeys = {
     ["N1T2024"] = true,
     ["C0R3V1"] = true,
@@ -27,7 +27,7 @@ local validKeys = {
     ["CH33T3R"] = true
 }
 
--- Create NEW GUI
+
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "NitosiumLoader"
 ScreenGui.Parent = CoreGui
@@ -102,7 +102,7 @@ Status.Text = "🔒 Encrypted key system"
 Status.TextColor3 = Color3.fromRGB(150, 150, 150)
 Status.TextSize = 13
 
--- Verification function
+
 VerifyBtn.MouseButton1Click:Connect(function()
     local inputKey = KeyBox.Text:upper()
     
