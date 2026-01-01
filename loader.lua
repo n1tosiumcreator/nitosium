@@ -1,131 +1,230 @@
--- NITOSIUM LOADER v1.1 - FIXED DUPLICATE GUI
-print("🔐 NITOSIUM LOADER INITIALIZING...")
+-- NITOSIUM LOADER v1.3
+-- GitHub: https://github.com/yourusername/nitosium
+-- Paste this into your executor to load from GitHub
 
-
-local CoreGui = game:GetService("CoreGui")
-
-
-if CoreGui:FindFirstChild("NitosiumLoader") then
-    CoreGui.NitosiumLoader:Destroy()
+local function LoadNitosium()
+    print("Loading Nitosium v1.3 from GitHub...")
+    
+    -- GitHub raw URL
+    local githubURL = "https://raw.githubusercontent.com/yourusername/nitosium/main/nitosium.lua"
+    
+    -- Try to load from GitHub
+    local success, err = pcall(function()
+        local scriptContent = game:HttpGet(githubURL)
+        
+        if scriptContent and #scriptContent > 100 then -- Check if we got actual content
+            print("Successfully downloaded Nitosium v1.3")
+            print("Script size: " .. #scriptContent .. " bytes")
+            
+            -- Execute the downloaded script
+            loadstring(scriptContent)()
+            
+            print("Nitosium v1.3 loaded successfully!")
+        else
+            error("Failed to download script from GitHub")
+        end
+    end)
+    
+    if not success then
+        print("GitHub load failed: " .. err)
+        print("Trying alternative method...")
+        
+        -- Alternative load method (for executors that block HttpGet)
+        LoadAlternative()
+    end
 end
 
-if CoreGui:FindFirstChild("NitosiumCore") then
-    CoreGui.NitosiumCore:Destroy()
+local function LoadAlternative()
+    print("Loading via alternative method...")
+    
+    -- Pastebin alternative (if GitHub is blocked)
+    local pastebinURL = "https://pastebin.com/raw/XXXXXX" -- Replace with your Pastebin code
+    
+    local success, err = pcall(function()
+        local scriptContent = game:HttpGet(pastebinURL)
+        
+        if scriptContent then
+            loadstring(scriptContent)()
+            print("Nitosium v1.3 loaded from alternative source!")
+        end
+    end)
+    
+    if not success then
+        print("Alternative load failed: " .. err)
+        print("Loading from script...")
+        
+        -- Direct script as fallback
+        LoadDirect()
+    end
 end
 
+local function LoadDirect()
+    print("Loading Nitosium directly...")
+    
+    -- The full Nitosium script would be here
+    -- This is just a minimal version for testing
+    print("NITOSIUM DIRECT LOADER")
+    print("For full version, use GitHub or Pastebin method")
+    
+    -- You can paste the full script here as fallback
+    -- [PASTE THE ENTIRE NITOSIUM SCRIPT HERE]
+end
 
-local validKeys = {
-    ["N1T2024"] = true,
-    ["C0R3V1"] = true,
-    ["STRUC1D"] = true,
-    ["X3N0INJ"] = true,
-    ["H4CK3R"] = true,
-    ["PR0G4M"] = true,
-    ["V1LL4G3"] = true,
-    ["SURV1V3"] = true,
-    ["PL4N3CR"] = true,
-    ["CH33T3R"] = true
-}
+-- Main menu for the loader
+local LoaderGui = Instance.new("ScreenGui")
+LoaderGui.Name = "NitosiumLoader"
+LoaderGui.Parent = game:GetService("CoreGui")
+LoaderGui.ResetOnSpawn = false
 
-
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "NitosiumLoader"
-ScreenGui.Parent = CoreGui
-ScreenGui.ResetOnSpawn = false
-
-local MainFrame = Instance.new("Frame")
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-MainFrame.BorderSizePixel = 0
-MainFrame.Position = UDim2.new(0.4, 0, 0.4, 0)
-MainFrame.Size = UDim2.new(0, 400, 0, 280)
-MainFrame.Active = true
-MainFrame.Draggable = true
+local LoaderFrame = Instance.new("Frame")
+LoaderFrame.Name = "LoaderFrame"
+LoaderFrame.Parent = LoaderGui
+LoaderFrame.BackgroundColor3 = Color3.fromRGB(15, 0, 0)
+LoaderFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+LoaderFrame.BorderSizePixel = 2
+LoaderFrame.Position = UDim2.new(0.4, 0, 0.4, 0)
+LoaderFrame.Size = UDim2.new(0, 400, 0, 300)
+LoaderFrame.Active = true
+LoaderFrame.Draggable = true
 
 local Title = Instance.new("TextLabel")
 Title.Name = "Title"
-Title.Parent = MainFrame
+Title.Parent = LoaderFrame
 Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0, 0, 0, 20)
 Title.Size = UDim2.new(1, 0, 0, 60)
-Title.Font = Enum.Font.GothamBold
-Title.Text = "NITOSIUM CORE LOADER"
-Title.TextColor3 = Color3.fromRGB(0, 200, 255)
-Title.TextSize = 24
+Title.Font = Enum.Font.GothamBlack
+Title.Text = "NITOSIUM LOADER"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextSize = 32
 
-local Info = Instance.new("TextLabel")
-Info.Name = "Info"
-Info.Parent = MainFrame
-Info.BackgroundTransparency = 1
-Info.Position = UDim2.new(0, 0, 0, 90)
-Info.Size = UDim2.new(1, 0, 0, 60)
-Info.Font = Enum.Font.Gotham
-Info.Text = "Enter encrypted key from supplier\n\n10 encrypted keys available"
-Info.TextColor3 = Color3.fromRGB(180, 180, 180)
-Info.TextSize = 14
-Info.TextYAlignment = Enum.TextYAlignment.Top
+local VersionLabel = Instance.new("TextLabel")
+VersionLabel.Name = "VersionLabel"
+VersionLabel.Parent = LoaderFrame
+VersionLabel.BackgroundTransparency = 1
+VersionLabel.Position = UDim2.new(0, 0, 0, 70)
+VersionLabel.Size = UDim2.new(1, 0, 0, 30)
+VersionLabel.Font = Enum.Font.Gotham
+VersionLabel.Text = "v1.3"
+VersionLabel.TextColor3 = Color3.fromRGB(200, 0, 0)
+VersionLabel.TextSize = 20
 
-local KeyBox = Instance.new("TextBox")
-KeyBox.Name = "KeyBox"
-KeyBox.Parent = MainFrame
-KeyBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-KeyBox.BorderSizePixel = 0
-KeyBox.Position = UDim2.new(0.1, 0, 0.45, 0)
-KeyBox.Size = UDim2.new(0.8, 0, 0, 40)
-KeyBox.Font = Enum.Font.Code
-KeyBox.PlaceholderText = "Enter encrypted key..."
-KeyBox.Text = ""
-KeyBox.TextColor3 = Color3.new(1, 1, 1)
-KeyBox.TextSize = 16
+local InfoLabel = Instance.new("TextLabel")
+InfoLabel.Name = "InfoLabel"
+InfoLabel.Parent = LoaderFrame
+InfoLabel.BackgroundTransparency = 1
+InfoLabel.Position = UDim2.new(0, 0, 0, 100)
+InfoLabel.Size = UDim2.new(1, 0, 0, 80)
+InfoLabel.Font = Enum.Font.Gotham
+InfoLabel.Text = "Select load method:"
+InfoLabel.TextColor3 = Color3.fromRGB(255, 200, 200)
+InfoLabel.TextSize = 16
+InfoLabel.TextWrapped = true
 
-local VerifyBtn = Instance.new("TextButton")
-VerifyBtn.Name = "VerifyBtn"
-VerifyBtn.Parent = MainFrame
-VerifyBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-VerifyBtn.BorderSizePixel = 0
-VerifyBtn.Position = UDim2.new(0.25, 0, 0.65, 0)
-VerifyBtn.Size = UDim2.new(0.5, 0, 0, 45)
-VerifyBtn.Font = Enum.Font.GothamBold
-VerifyBtn.Text = "VERIFY & LOAD"
-VerifyBtn.TextColor3 = Color3.new(1, 1, 1)
-VerifyBtn.TextSize = 16
+-- GitHub Button
+local GitHubBtn = Instance.new("TextButton")
+GitHubBtn.Name = "GitHubBtn"
+GitHubBtn.Parent = LoaderFrame
+GitHubBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+GitHubBtn.BorderColor3 = Color3.fromRGB(150, 0, 0)
+GitHubBtn.BorderSizePixel = 1
+GitHubBtn.Position = UDim2.new(0.1, 0, 0.45, 0)
+GitHubBtn.Size = UDim2.new(0.35, 0, 0, 45)
+GitHubBtn.Font = Enum.Font.GothamBold
+GitHubBtn.Text = "GitHub"
+GitHubBtn.TextColor3 = Color3.new(1, 1, 1)
+GitHubBtn.TextSize = 18
 
-local Status = Instance.new("TextLabel")
-Status.Name = "Status"
-Status.Parent = MainFrame
-Status.BackgroundTransparency = 1
-Status.Position = UDim2.new(0, 0, 0.85, 0)
-Status.Size = UDim2.new(1, 0, 0, 30)
-Status.Font = Enum.Font.Gotham
-Status.Text = "🔒 Encrypted key system"
-Status.TextColor3 = Color3.fromRGB(150, 150, 150)
-Status.TextSize = 13
+-- Alternative Button
+local AltBtn = Instance.new("TextButton")
+AltBtn.Name = "AltBtn"
+AltBtn.Parent = LoaderFrame
+AltBtn.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+AltBtn.BorderColor3 = Color3.fromRGB(150, 80, 0)
+AltBtn.BorderSizePixel = 1
+AltBtn.Position = UDim2.new(0.55, 0, 0.45, 0)
+AltBtn.Size = UDim2.new(0.35, 0, 0, 45)
+AltBtn.Font = Enum.Font.GothamBold
+AltBtn.Text = "Alternative"
+AltBtn.TextColor3 = Color3.new(1, 1, 1)
+AltBtn.TextSize = 18
 
+-- Status Label
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Name = "StatusLabel"
+StatusLabel.Parent = LoaderFrame
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Position = UDim2.new(0, 0, 0.85, 0)
+StatusLabel.Size = UDim2.new(1, 0, 0, 40)
+StatusLabel.Font = Enum.Font.Gotham
+StatusLabel.Text = "Ready to load..."
+StatusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+StatusLabel.TextSize = 14
 
-VerifyBtn.MouseButton1Click:Connect(function()
-    local inputKey = KeyBox.Text:upper()
+-- Rainbow effect for title
+spawn(function()
+    while LoaderGui.Parent do
+        for hue = 0, 1, 0.01 do
+            if not LoaderGui.Parent then break end
+            Title.TextColor3 = Color3.fromHSV(hue, 1, 1)
+            wait(0.03)
+        end
+    end
+end)
+
+-- Button functions
+GitHubBtn.MouseButton1Click:Connect(function()
+    StatusLabel.Text = "Loading from GitHub..."
+    StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+    GitHubBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    GitHubBtn.Text = "LOADING..."
     
-    if validKeys[inputKey] then
-        Status.Text = "✓ Key verified! Loading cheat..."
-        Status.TextColor3 = Color3.fromRGB(0, 255, 0)
+    wait(0.5)
+    
+    LoadNitosium()
+    
+    StatusLabel.Text = "GitHub load attempted!"
+    StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    
+    -- Auto-close after 2 seconds
+    wait(2)
+    LoaderGui:Destroy()
+end)
+
+AltBtn.MouseButton1Click:Connect(function()
+    StatusLabel.Text = "Loading from alternative source..."
+    StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+    AltBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    AltBtn.Text = "LOADING..."
+    
+    wait(0.5)
+    
+    LoadAlternative()
+    
+    StatusLabel.Text = "Alternative load attempted!"
+    StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+    
+    -- Auto-close after 2 seconds
+    wait(2)
+    LoaderGui:Destroy()
+end)
+
+-- Auto-load after 10 seconds
+spawn(function()
+    wait(10)
+    if LoaderGui.Parent then
+        StatusLabel.Text = "Auto-loading from GitHub..."
+        StatusLabel.TextColor3 = Color3.fromRGB(0, 200, 255)
         
         wait(1)
-        ScreenGui:Destroy()
         
-    
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/n1tosiumcreator/nitosium/main/cheat.lua"))()
-    else
-        Status.Text = "✗ Invalid encrypted key"
-        Status.TextColor3 = Color3.fromRGB(255, 50, 50)
-        KeyBox.Text = ""
+        LoadNitosium()
+        
+        wait(1)
+        LoaderGui:Destroy()
     end
 end)
 
-KeyBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then
-        VerifyBtn:Activate()
-    end
-end)
-
-print("LOADER READY - AWAITING KEY")
+print("NITOSIUM LOADER v1.3 INITIALIZED")
+print("GitHub: https://github.com/yourusername/nitosium")
+print("Script will auto-load in 10 seconds...")
