@@ -1,4 +1,20 @@
--- NITOSIUM CORE v1.2 - WORKING VERSION WITH KEYS
+-- NITOSIUM CORE v1.2 - MAIN CHEAT WITH CLEANUP
+print("⚡ NITOSIUM CORE LOADING...")
+
+
+local CoreGui = game:GetService("CoreGui")
+
+-- Remove old GUI if exists
+if CoreGui:FindFirstChild("NitosiumCore") then
+    CoreGui.NitosiumCore:Destroy()
+end
+
+if CoreGui:FindFirstChild("NitosiumLoader") then
+    CoreGui.NitosiumLoader:Destroy()
+end
+
+local Players = game:GetService("Players")
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
