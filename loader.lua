@@ -113,7 +113,7 @@ VerifyBtn.MouseButton1Click:Connect(function()
         wait(1)
         ScreenGui:Destroy()
         
-        -- Load main cheat
+        -- Load main cheat (ЗАМЕНИ ColinSurvivor НА СВОЙ GITHUB USERNAME)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/n1tosiumcreator/nitosium/main/cheat.lua"))()
     else
         Status.Text = "✗ Invalid encrypted key"
