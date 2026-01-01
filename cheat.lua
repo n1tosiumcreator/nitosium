@@ -22,7 +22,6 @@ local Lighting = game:GetService("Lighting")
 local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 
--- ВАШИ 10 КЛЮЧЕЙ (дайте эти ключи деревне)
 local VALID_KEYS = {
     "NITOSIUM-2024-1",
     "NITOSIUM-2024-2", 
@@ -36,7 +35,6 @@ local VALID_KEYS = {
     "NITOSIUM-2024-10"
 }
 
--- Простая проверка ключа
 local function CheckKey(key)
     for _, validKey in pairs(VALID_KEYS) do
         if key == validKey then
@@ -46,7 +44,6 @@ local function CheckKey(key)
     return false
 end
 
--- Создаем GUI для ввода ключа
 local KeyGui = Instance.new("ScreenGui")
 KeyGui.Name = "KeyInputGUI"
 KeyGui.Parent = game:GetService("CoreGui")
@@ -120,7 +117,6 @@ StatusLabel.Text = "Waiting for key..."
 StatusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
 StatusLabel.TextSize = 13
 
--- Функция активации
 ActivateBtn.MouseButton1Click:Connect(function()
     local inputKey = KeyBox.Text
     if CheckKey(inputKey) then
@@ -136,14 +132,12 @@ ActivateBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Также активация по Enter
 KeyBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
         ActivateBtn:Activate()
     end
 end)
 
--- Функция запуска чита
 function StartCheat()
     -- States
     local ESPEnabled = false
@@ -158,13 +152,12 @@ function StartCheat()
     local RainbowTitle = true
     local CustomSky = false
     
-    -- Colors
     local ESPColor = Color3.new(1, 0, 0)
     local BoxColor = Color3.new(0, 1, 0)
     local ChamsColor = Color3.fromRGB(255, 0, 255)
     local SkyColor = Color3.fromRGB(100, 150, 255)
 
-    -- Main GUI
+    
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "NitosiumCore"
     ScreenGui.Parent = game:GetService("CoreGui")
@@ -181,7 +174,7 @@ function StartCheat()
     Main.Draggable = true
     Main.Visible = true
 
-    -- Top Bar
+  
     local TopBar = Instance.new("Frame")
     TopBar.Name = "TopBar"
     TopBar.Parent = Main
@@ -213,7 +206,7 @@ function StartCheat()
     VersionLabel.TextSize = 12
     VersionLabel.TextXAlignment = Enum.TextXAlignment.Right
 
-    -- Left Panel
+
     local LeftPanel = Instance.new("Frame")
     LeftPanel.Name = "LeftPanel"
     LeftPanel.Parent = Main
@@ -222,7 +215,7 @@ function StartCheat()
     LeftPanel.Position = UDim2.new(0, 0, 0, 40)
     LeftPanel.Size = UDim2.new(0, 100, 1, -40)
 
-    -- Right Panel
+  
     local RightPanel = Instance.new("Frame")
     RightPanel.Name = "RightPanel"
     RightPanel.Parent = Main
@@ -231,7 +224,7 @@ function StartCheat()
     RightPanel.Position = UDim2.new(0, 100, 0, 40)
     RightPanel.Size = UDim2.new(1, -100, 1, -40)
 
-    -- Hitbox Indicator
+  
     local HitboxIndicator = Instance.new("Frame")
     HitboxIndicator.Name = "HitboxIndicator"
     HitboxIndicator.Parent = Main
@@ -262,7 +255,7 @@ function StartCheat()
     HitboxValue.TextColor3 = Color3.fromRGB(0, 200, 255)
     HitboxValue.TextSize = 12
 
-    -- Tabs
+
     local Tabs = {"VISUAL", "COLORS", "COMBAT", "MOVEMENT"}
     local TabFrames = {}
     local CurrentTab = "VISUAL"
@@ -509,7 +502,7 @@ function StartCheat()
         callback(defaultColor)
     end
 
-    -- VISUAL Tab
+ 
     CreateToggle(TabFrames["VISUAL"], "ESP", false, function(state)
         ESPEnabled = state
     end)
@@ -540,7 +533,7 @@ function StartCheat()
         end
     end)
 
-    -- COLORS Tab
+    
     CreateColorInput(TabFrames["COLORS"], "ESP Color", Color3.new(1, 0, 0), function(color)
         ESPColor = color
     end)
@@ -557,7 +550,7 @@ function StartCheat()
         SkyColor = color
     end)
 
-    -- COMBAT Tab
+
     CreateToggle(TabFrames["COMBAT"], "Hitbox Expand", false, function(state)
         HitboxEnabled = state
         HitboxIndicator.Visible = state
@@ -567,7 +560,7 @@ function StartCheat()
         HitboxSize = value
     end)
 
-    -- MOVEMENT Tab
+
     CreateToggle(TabFrames["MOVEMENT"], "Fly Mode", false, function(state)
         FlyEnabled = state
     end)
@@ -593,7 +586,7 @@ function StartCheat()
         end
     end)
 
-    -- TEAM CHECK
+
     function IsEnemy(player)
         if player == LocalPlayer then return false end
         if not TeamCheck then return true end
@@ -605,7 +598,7 @@ function StartCheat()
         return LocalPlayer.Team ~= player.Team
     end
 
-    -- ESP SYSTEM
+ 
     local ESPData = {}
 
     local function SetupESP(player)
@@ -667,7 +660,7 @@ function StartCheat()
         end
     end
 
-    -- UPDATE ESP
+ 
     RunService.RenderStepped:Connect(function()
         for player, data in pairs(ESPData) do
             if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
@@ -728,7 +721,7 @@ function StartCheat()
         end
     end)
 
-    -- HITBOX SYSTEM
+
     local OriginalSizes = {}
 
     RunService.RenderStepped:Connect(function()
@@ -765,7 +758,7 @@ function StartCheat()
         end
     end)
 
-    -- ANTI-AIM
+
     RunService.RenderStepped:Connect(function()
         if AntiAimEnabled and LocalPlayer.Character then
             local humanoid = LocalPlayer.Character:FindFirstChild("Humanoid")
@@ -783,7 +776,7 @@ function StartCheat()
         end
     end)
 
-    -- FLY SYSTEM
+    
     local FlyVelocity
     RunService.RenderStepped:Connect(function()
         if FlyEnabled and LocalPlayer.Character then
@@ -815,7 +808,7 @@ function StartCheat()
         end
     end)
 
-    -- NOCLIP
+  
     RunService.Stepped:Connect(function()
         if NoclipEnabled and LocalPlayer.Character then
             for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
@@ -826,7 +819,7 @@ function StartCheat()
         end
     end)
 
-    -- CUSTOM SKY
+  
     RunService.RenderStepped:Connect(function()
         if CustomSky then
             Lighting.FogColor = SkyColor
@@ -834,7 +827,7 @@ function StartCheat()
         end
     end)
 
-    -- PLAYER MANAGEMENT
+   
     Players.PlayerAdded:Connect(function(player)
         wait(1)
         if player ~= LocalPlayer then
@@ -888,7 +881,6 @@ function StartCheat()
     print("====================================")
 end
 
--- Выведите ключи в консоль
 print("NITOSIUM CORE v1.2 - 10 LICENSE KEYS:")
 print("1. NITOSIUM-2024-1")
 print("2. NITOSIUM-2024-2")
